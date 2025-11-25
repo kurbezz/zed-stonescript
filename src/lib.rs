@@ -11,28 +11,42 @@ impl StonescriptExtension {
         language_server_id: &LanguageServerId,
         worktree: &zed::Worktree,
     ) -> Result<String> {
+        // First, check if LSP is in PATH
         if let Some(path) = worktree.which("stonescript-lsp") {
             return Ok(path);
         }
 
+        // Second, check if we have a cached binary
         if let Some(path) = &self.cached_binary_path {
             if fs::metadata(path).map_or(false, |stat| stat.is_file()) {
                 return Ok(path.clone());
             }
         }
 
+        // Third, try to download from GitHub
         zed::set_language_server_installation_status(
             language_server_id,
             &zed::LanguageServerInstallationStatus::CheckingForUpdate,
         );
 
-        let release = zed::latest_github_release(
+        let release = match zed::latest_github_release(
             "kurbezz/stonescript-language-server",
             zed::GithubReleaseOptions {
                 require_assets: true,
                 pre_release: false,
             },
-        )?;
+        ) {
+            Ok(release) => release,
+            Err(e) => {
+                return Err(format!(
+                    "Failed to fetch latest release from GitHub: {}. \
+                    Please install stonescript-lsp manually and add it to your PATH. \
+                    See: https://github.com/kurbezz/stonescript-language-server#installation",
+                    e
+                )
+                .into());
+            }
+        };
 
         let (platform, arch) = zed::current_platform();
         let asset_name = format!(
@@ -57,7 +71,15 @@ impl StonescriptExtension {
             .assets
             .iter()
             .find(|asset| asset.name == asset_name)
-            .ok_or_else(|| format!("no asset found matching {:?}", asset_name))?;
+            .ok_or_else(|| {
+                format!(
+                    "No prebuilt binary found for your platform ({:?}). \
+                    Available assets: {:?}. \
+                    Please build stonescript-lsp from source and add it to your PATH.",
+                    asset_name,
+                    release.assets.iter().map(|a| &a.name).collect::<Vec<_>>()
+                )
+            })?;
 
         let version_dir = format!("stonescript-lsp-{}", release.version);
         let binary_path = format!("{version_dir}/stonescript-lsp");
