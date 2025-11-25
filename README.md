@@ -22,6 +22,8 @@ A Zed editor extension providing comprehensive language support for StoneScript,
 4. Search for "StoneScript"
 5. Click "Install"
 
+The extension will automatically download and install the StoneScript Language Server on first use.
+
 ### From Source
 
 ```bash
@@ -31,11 +33,17 @@ cd zed-stonescript
 
 Then in Zed, use `zed: install dev extension` and select this directory.
 
-## Requirements
+## Language Server
 
-This extension requires the [StoneScript Language Server](https://github.com/kurbezz/stonescript-language-server). The extension will attempt to use the language server if it's available in your PATH.
+The extension automatically manages the [StoneScript Language Server](https://github.com/kurbezz/stonescript-language-server):
 
-### Installing the Language Server
+- **Automatic Installation**: The LSP binary is downloaded automatically from GitHub releases when you first open a StoneScript file
+- **Version Management**: The extension checks for updates and downloads new versions as needed
+- **Platform Support**: Pre-built binaries for macOS (Apple Silicon & Intel), Linux (x86_64), and Windows
+
+### Manual Installation (Optional)
+
+If you prefer to use a custom-built LSP server, you can install it manually and add it to your PATH:
 
 ```bash
 git clone https://github.com/kurbezz/stonescript-language-server.git
@@ -43,6 +51,8 @@ cd stonescript-language-server
 cargo build --release
 # Add target/release/stonescript-lsp to your PATH
 ```
+
+The extension will automatically detect and use the LSP from your PATH if available.
 
 ## File Extensions
 
