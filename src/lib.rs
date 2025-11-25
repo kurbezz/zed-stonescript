@@ -13,7 +13,7 @@ impl zed::Extension for StonescriptExtension {
         _worktree: &zed::Worktree,
     ) -> Result<zed::Command> {
         Ok(zed::Command {
-            command: "/Users/kurbezz/.local/bin/stonescript-lsp".to_string(),
+            command: "stonescript-lsp".to_string(),
             args: vec![],
             env: Default::default(),
         })
