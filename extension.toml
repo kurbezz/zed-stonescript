@@ -1,0 +1,15 @@
+id = "stonescript"
+name = "StoneScript"
+version = "0.1.0"
+schema_version = 1
+authors = ["kurbezz <https://github.com/kurbezz>"]
+description = "StoneScript language support with LSP"
+repository = "https://github.com/kurbezz/zed-stonescript"
+
+[grammars.stonescript]
+repository = "https://github.com/kurbezz/tree-sitter-stonescript"
+rev = "main"
+
+[language_servers.stonescript-lsp]
+name = "StoneScript LSP"
+languages = ["StoneScript"]

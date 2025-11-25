@@ -1,0 +1,9 @@
+target/
+extension.wasm
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Grammar directory managed by Zed
+grammars/
