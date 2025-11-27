@@ -1,6 +1,5 @@
 name = "StoneScript"
-grammar = "stonescript"
-path_suffixes = ["ss"]
+path_suffixes = ["ss", "txt"]
 line_comments = ["# "]
 block_comment = ["/* ", " */"]
 tab_size = 2
