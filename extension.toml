@@ -7,6 +7,10 @@ description = "StoneScript language support with LSP"
 repository = "https://github.com/kurbezz/zed-stonescript"
 icon = "icons/stonescript.png"
 
+[grammars.stonescript]
+repository = "https://github.com/kurbezz/tree-sitter-stonescript"
+rev = "main"
+
 [language_servers.stonescript-lsp]
 name = "StoneScript LSP"
 languages = ["StoneScript"]

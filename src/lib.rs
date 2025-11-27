@@ -1,5 +1,5 @@
 use std::fs;
-use zed_extension_api::{self as zed, settings::LspSettings, LanguageServerId, Result};
+use zed_extension_api::{self as zed, LanguageServerId, Result};
 
 struct StonescriptExtension {
     cached_binary_path: Option<String>,
@@ -136,6 +136,18 @@ impl zed::Extension for StonescriptExtension {
             args: vec![],
             env: Default::default(),
         })
+    }
+
+    fn language_server_initialization_options(
+        &mut self,
+        _language_server_id: &LanguageServerId,
+        _worktree: &zed::Worktree,
+    ) -> Result<Option<zed::serde_json::Value>> {
+        Ok(Some(zed::serde_json::json!({
+            "semanticTokens": {
+                "enable": true
+            }
+        })))
     }
 }
 
