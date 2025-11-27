@@ -2,6 +2,8 @@
 
 A Zed editor extension providing comprehensive language support for StoneScript, the scripting language used in Stone Story RPG.
 
+![Extension Icon](icons/stonescript.svg)
+
 ## Features
 
 - **Syntax Highlighting** - Rich syntax highlighting powered by Tree-sitter
@@ -57,8 +59,8 @@ The extension will automatically detect and use the LSP from your PATH if availa
 ## File Extensions
 
 The extension automatically activates for files with the following extensions:
-- `.ss` - StoneScript files
-- `.txt` - Text files (when containing StoneScript code)
+- `.ss` - StoneScript files (primary extension)
+- `.txt` - Text files (now supported for StoneScript code)
 
 ## Configuration
 
@@ -71,8 +73,9 @@ Configuration is managed through `extension.toml`:
 ```toml
 id = "stonescript"
 name = "StoneScript"
-version = "0.1.0"
+version = "0.3.0"
 description = "StoneScript language support with LSP"
+icon = "icons/stonescript.svg"
 ```
 
 ## Syntax Highlighting
@@ -129,6 +132,9 @@ cargo build --release
 zed-stonescript/
 ├── extension.toml              # Extension metadata
 ├── Cargo.toml                  # Rust dependencies
+├── icons/
+│   ├── stonescript.svg         # Extension icon
+│   └── README.md               # Icon customization guide
 ├── src/
 │   └── lib.rs                  # Extension implementation
 └── languages/
@@ -136,6 +142,16 @@ zed-stonescript/
         ├── config.toml         # Language configuration
         └── highlights.scm      # Syntax highlighting queries
 ```
+
+### Customizing the Icon
+
+The extension includes a custom icon that appears in Zed's extension list and file tree. To customize it:
+
+1. Edit or replace `icons/stonescript.svg` with your own SVG icon (recommended size: 64x64px)
+2. Update the `icon` field in `extension.toml` if you change the filename
+3. Rebuild the extension with `cargo build --release`
+
+See `icons/README.md` for detailed guidelines on creating or modifying icons.
 
 ### Syntax Highlighting Queries
 
